@@ -1,0 +1,46 @@
+Root
+
+<MyLabel@Label>:
+	canvas:
+        Color:
+            rgba: 0,0,0,0.6
+        Line:
+            points: (self.x,self.y),(self.x+self.width,self.y)
+    
+<Root@BoxLayout>:
+	size: root.size
+	orientation: 'vertical'
+	padding: self.width * 0.2,self.height * 0.15
+	matchview: matchview
+	canvas: 
+		Color:
+			rgba: 0.99,0.99,0.99,1
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+	TextInput:
+		size_hint_y: 0.1
+		id: title_input
+		font_size: self.height/2
+		on_text: 
+			if self.text: root.matchview.match(self.text)
+			else: root.matchview.data = []
+	MatchView:
+		id: matchview
+		size_hint_y: 0.5
+		viewclass: 'MyLabel'
+		RecycleBoxLayout:
+			orientation: 'vertical'
+			default_size_hint: 1,None
+			default_size: None,dp(45)
+			size_hint_y: None
+			scaping: 5
+			height: self.minimum_height
+			padding: 10
+
+	Widget:
+		size_hint_y: 0.3
+	Button:
+		size_hint_y: 0.1
+		text: 'Go' #dumb
